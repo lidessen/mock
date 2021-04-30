@@ -15,7 +15,7 @@ export function randomNum(start: number, end: number) {
 }
 
 export function random(seed: string): string;
-export function random<T = unknown>(seed: T[]): T;
+export function random<T = unknown>(seed: readonly T[]): T;
 
 export function random(end: number): number;
 export function random(start: number, end: number): number;
