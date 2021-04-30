@@ -1,8 +1,8 @@
 type FillFunc<T> = (i: number) => T;
 
-export function list(len: number): number[];
-export function list<T>(len: number, fill: FillFunc<T>): T[];
-export function list<T>(len: number, fill?: FillFunc<T>) {
+export function multi(len: number): number[];
+export function multi<T>(len: number, fill: FillFunc<T>): T[];
+export function multi<T>(len: number, fill?: FillFunc<T>) {
   return Array(len)
     .fill(0)
     .map((_, i) => (fill ? fill(i) : i));
@@ -25,7 +25,7 @@ export function round(...nums: number[]) {
 
 export function range(start: number, end: number) {
   [start, end] = floors(start, end);
-  return list(Math.abs(start - end), (i) => start + i * signOf(i));
+  return multi(Math.abs(start - end), (i) => start + i * signOf(i));
 }
 
 export function isArray<T = unknown>(target: unknown): target is T[] {

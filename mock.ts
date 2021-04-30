@@ -1,10 +1,10 @@
-import { list, defined } from "./lib.ts";
+import { multi, defined } from "./lib.ts";
 import { random } from "./random.ts";
 
 export function mock<T = unknown>(
   seed: (i: number) => T
 ): (count: number) => T[] {
-  return (count: number) => list(count, seed);
+  return (count: number) => multi(count, seed);
 }
 
 export function mockName(chars: string[]): string;
@@ -21,7 +21,7 @@ export function mockName(arg1: unknown, arg2?: number, arg3?: number) {
 
 type NameMock = ["name", [string, number, number]];
 type FuncMock = ["func", () => unknown];
-type ListMock = ["list", readonly [...unknown[]]];
+type ListMock = ["multi", readonly [...unknown[]]];
 type StringMock = ["str", string];
 type NumMock = ["num", [number, number]];
 type MockMock = ["mock", MockSeed];
@@ -60,7 +60,7 @@ export function mockObj<T extends MockSeed>(seed: T): Mocked<T> {
       result[k] = mockName(...val[1]);
     } else if (val[0] === "mock") {
       result[k] = mockObj(val[1]);
-    } else if (val[0] === "list") {
+    } else if (val[0] === "multi") {
       result[k] = random(val[1]);
     } else if (val[0] === "num") {
       result[k] = random(...val[1]);
